@@ -1,0 +1,15 @@
+{
+  "name": "devtrack",
+  "version": "1.0.0",
+  "description": "App that will help you organize your dev tools",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Robert Wollny",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.0.11"
+  }
+}
