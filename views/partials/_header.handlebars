@@ -1,8 +1,8 @@
 <nav class="grey darken-3">
   <div class="container">
     <div class="nav-wrapper">
-      <a href="/devtools" class="brand-logo center">DevTrack</a>
-      <a href="#" data-activates="main-menu" class="button-collapse">
+      <a href="/devtools" class="brand-logo center"> DevTrack</a>
+      <a href="#" data-activates="main-menu" class="button-collapse show-on-large">
         <i class="fas fa-bars"></i>
       </a>
       <!-- Right Nav -->
@@ -18,9 +18,40 @@
         {{else}}
         <li>
           <a href="/devtools">
-            <i class="fas fa-wrench"></i> Public DevTools</a>
+            <i class="fas fa-code"></i> Public DevTools</a>
         </li>
         {{/if}}
+      </ul>
+      <!-- Side Nav -->
+      <ul class="side-nav" id="main-menu">
+          {{#if user}}
+
+          {{else}}
+        <li>
+          <a class="btn red darken-1" href="/auth/google">
+            <i class="fab fa-google"></i> Login with Google
+          </a>
+        </li>
+          {{/if}}
+          <li>
+            <a href="/devtools">
+              <i class="fas fa-code"></i> Public DevTools</a>
+          </li>
+          {{#if user}}
+          <li class="divider"></li>
+          <li>
+            <a href="/dashboard">
+              <i class="fas fa-cogs"></i> Dashboard</a>
+          </li>
+          <li>
+            <a href="/devtools/my">
+              <i class="fas fa-user"></i> My DevTools</a>
+          </li>
+          <li>
+            <a href="/auth/logout">
+              <i class="fas fa-sign-out-alt"></i> Logout</a>
+          </li>
+          {{/if}}
       </ul>
     </div>
   </div>
