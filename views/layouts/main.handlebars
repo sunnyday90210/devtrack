@@ -8,24 +8,35 @@
   <title>Devtrack</title>
   <!-- Compiled and minified CSS and Font Awsome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css" />
+  <link rel="stylesheet" href="/css/style.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
     crossorigin="anonymous"></script>
 </head>
 
 <body>
   {{> _header}}
+  {{#if user}}
+    {{> _add-btn}}
+  {{/if}}
   <main>
     <div class="container">
       {{{body}}}
     </div>
   </main>
+  {{> _footer}}
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.js"></script>
+  <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
   <script>
     $(document).ready(() => {
       $('.button-collapse').sideNav();
+      $('select').material_select();
+    });
+
+    CKEDITOR.replace('body', {
+      plugins: 'wysiwygarea,toolbar,basicstyles,link'
     });
   </script>
 </body>
