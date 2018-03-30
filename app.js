@@ -1,13 +1,15 @@
 const express = require("express");
-const path = require('path');
+const path = require("path");
 const exphbs = require("express-handlebars");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
 
-// Load User Model
+// Load Models
 require("./models/user");
+require("./models/devtools");
 
 // Passport Config
 require("./config/passport")(passport);
@@ -26,12 +28,15 @@ mongoose.Promise = global.Promise;
 // Mongoose Connect
 mongoose
   .connect(keys.mongoURI, {
-    useMongoClient: true
+    // useMongoClient: true
   })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Handlebars Middleware
 app.engine(
@@ -61,9 +66,8 @@ app.use((req, res, next) => {
   next();
 });
 
-
 // Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Use the routes
 app.use("/", index);
