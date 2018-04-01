@@ -1,13 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require('mongoose');
-const devtools = mongoose.model('devtools');
-const user = mongoose.model('user');
+const Devtools = mongoose.model('devtools');
+const user = mongoose.model('users');
 const { ensureAuthenticated, ensureGuest } = require("../helpers/auth");
 
 // DevTools Index
 router.get("/", (req, res) => {
-  res.render("devtools/index");
+  Devtools.find({status:'public'})
+  .populate('user')
+  .then(devtools => {
+    res.render("devtools/index",  {
+      devtools: devtools
+    });
+  });
 });
 
 // Add DevTools Form
@@ -33,7 +39,7 @@ router.post("/", (req, res) => {
     user: req.user.id
   };
   // Create DevTools
-  new devtools(newDevTools)
+  new Devtools(newDevTools)
   .save()
   .then(devtools => {
     res.redirect(`/devtools/show/${devtools.id}`);

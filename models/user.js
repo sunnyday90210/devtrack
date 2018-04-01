@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// Create My Schema
+// Create Shema
 const UserSchema = new Schema({
   googleID: {
     type: String,
@@ -23,6 +23,4 @@ const UserSchema = new Schema({
 });
 
 // Create collection and add schema
-mongoose.model("user", UserSchema);
-
-
+mongoose.model("users", UserSchema);

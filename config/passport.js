@@ -2,7 +2,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const mongoose = require("mongoose");
 const keys = require("./keys");
 // Load user model
-const User = mongoose.model("user");
+const User = mongoose.model("users");
 
 module.exports = function(passport) {
   passport.use(
@@ -30,6 +30,7 @@ module.exports = function(passport) {
           image: image
         };
 
+        // Check for existing user
         User.findOne({
           googleID: profile.id
         }).then(user => {
