@@ -27,3 +27,15 @@ footer {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.responsive-img {
+  max-width: 50% !important;
+}
+
+.dash-status {
+  text-transform: capitalize;
+}
+
+#delete-form {
+  display: inline;
+}

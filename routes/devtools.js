@@ -17,21 +17,33 @@ router.get("/", (req, res) => {
 });
 
 // Show single devtools
-router.get('/show/:id', (req, res) => {
+router.get("/show/:id", (req, res) => {
   Devtools.findOne({
     _id: req.params.id
   })
-  .populate('user')
-  .then(devtools => {
-    res.render('devtools/show', {
-      devtools: devtools
+    .populate("user")
+    .then(devtools => {
+      res.render("devtools/show", {
+        devtools: devtools
+      });
     });
-  });
 });
 
 // Add DevTools Form
 router.get("/add", ensureAuthenticated, (req, res) => {
   res.render("devtools/add");
+});
+
+// Edit DevTools Form
+router.get("/edit/:id", ensureAuthenticated, (req, res) => {
+  Devtools.findOne({
+    _id: req.params.id
+  })
+    .then(devtools => {
+      res.render("devtools/edit", {
+        devtools: devtools
+      });
+    });
 });
 
 // Process Add DevTools

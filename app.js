@@ -26,7 +26,8 @@ const keys = require("./config/keys");
 const {
   truncate,
   stripTags,
-  formatDate
+  formatDate,
+  select
 } = require('./helpers/hbs');
 
 // Map global promises
@@ -52,7 +53,8 @@ app.engine(
     helpers: {
       truncate: truncate,
       stripTags: stripTags,
-      formatDate: formatDate
+      formatDate: formatDate,
+      select: select
     },
     defaultLayout: "main"
   })
