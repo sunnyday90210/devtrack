@@ -1,16 +1,29 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require('mongoose');
-const Devtools = mongoose.model('devtools');
-const user = mongoose.model('users');
+const mongoose = require("mongoose");
+const Devtools = mongoose.model("devtools");
+const user = mongoose.model("users");
 const { ensureAuthenticated, ensureGuest } = require("../helpers/auth");
 
 // DevTools Index
 router.get("/", (req, res) => {
-  Devtools.find({status:'public'})
+  Devtools.find({ status: "public" })
+    .populate("user")
+    .then(devtools => {
+      res.render("devtools/index", {
+        devtools: devtools
+      });
+    });
+});
+
+// Show single devtools
+router.get('/show/:id', (req, res) => {
+  Devtools.findOne({
+    _id: req.params.id
+  })
   .populate('user')
   .then(devtools => {
-    res.render("devtools/index",  {
+    res.render('devtools/show', {
       devtools: devtools
     });
   });
@@ -39,9 +52,7 @@ router.post("/", (req, res) => {
     user: req.user.id
   };
   // Create DevTools
-  new Devtools(newDevTools)
-  .save()
-  .then(devtools => {
+  new Devtools(newDevTools).save().then(devtools => {
     res.redirect(`/devtools/show/${devtools.id}`);
   });
 });
