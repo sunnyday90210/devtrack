@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
+const methodOverride = require('method-override');
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -27,7 +28,8 @@ const {
   truncate,
   stripTags,
   formatDate,
-  select
+  select,
+  editIcon
 } = require('./helpers/hbs');
 
 // Map global promises
@@ -43,8 +45,12 @@ mongoose
 
 const app = express();
 
+// Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Methodoverride Middleware
+app.use(methodOverride('_method'));
 
 // Handlebars Middleware
 app.engine(
@@ -54,7 +60,8 @@ app.engine(
       truncate: truncate,
       stripTags: stripTags,
       formatDate: formatDate,
-      select: select
+      select: select,
+      editIcon: editIcon
     },
     defaultLayout: "main"
   })

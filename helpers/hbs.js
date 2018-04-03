@@ -17,7 +17,27 @@ module.exports = {
   formatDate: function(date, format) {
     return moment(date).format(format);
   },
-  select: function(selected, options){
-    return options.fn(this).replace( new RegExp(' value=\"' + selected + '\"'), '$& selected="selected"').replace( new RegExp('>' + selected + '</option>'), ' selected="selected"$&');
+  select: function(selected, options) {
+    return options
+      .fn(this)
+      .replace(
+        new RegExp(' value="' + selected + '"'),
+        '$& selected="selected"'
+      )
+      .replace(
+        new RegExp(">" + selected + "</option>"),
+        ' selected="selected"$&'
+      );
+  },
+  editIcon: function(devtoolsUser, loggedUser, devtoolsId, floating = true) {
+    if (devtoolsUser == loggedUser) {
+      if (floating) {
+        return `<a href="/devtools/edit/${devtoolsId}" class="btn-floating halfway-fab red"><i class="fas fa-pencil-alt"></i></a>`;
+      } else {
+        return `<a href="/devtools/edit/${devtoolsId}"><i class="fas fa-edit"></i></a>`;
+      }
+    } else {
+      return "";
+    }
   }
 };

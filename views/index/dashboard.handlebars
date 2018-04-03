@@ -19,7 +19,8 @@
           <td><a class="btn left-align" href="/devtools/edit/{{id}}"><i class="fas fa-edit"></i> Edit</a>
 
 
-          <form action="/devtools/{{id}}" method="post" id="delete-form">
+          <form action="/devtools/{{id}}?_method=DELETE" method="post" id="delete-form">
+          <input type="hidden" name="_method" value="DELETE">
             <button type="submit" class="btn red"><i class="fas fa-trash-alt"></i> Delete</button>
           </form>
           </td>
