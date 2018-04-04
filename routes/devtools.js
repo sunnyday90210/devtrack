@@ -1,72 +1,86 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const mongoose = require("mongoose");
-const Devtools = mongoose.model("devtools");
-const user = mongoose.model("users");
-const { ensureAuthenticated, ensureGuest } = require("../helpers/auth");
+const mongoose = require('mongoose');
+const Devtools = mongoose.model('devtools');
+const user = mongoose.model('users');
+const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
 
 // DevTools Index
-router.get("/", (req, res) => {
-  Devtools.find({ status: "public" })
-    .populate("user")
-    .sort({ date: "desc" })
+router.get('/', (req, res) => {
+  Devtools.find({ status: 'public' })
+    .populate('user')
+    .sort({ date: 'desc' })
     .then(devtools => {
-      res.render("devtools/index", {
+      res.render('devtools/index', {
         devtools: devtools
       });
     });
 });
 
 // Show single devtools
-router.get("/show/:id", (req, res) => {
+router.get('/show/:id', (req, res) => {
   Devtools.findOne({
     _id: req.params.id
   })
-    .populate("user")
-    .populate("comments.commentUser")
+    .populate('user')
+    .populate('comments.commentUser')
     .then(devtools => {
-      res.render("devtools/show", {
-        devtools: devtools
-      });
+      if (devtools.status == 'public') {
+        res.render('devtools/show', {
+          devtools: devtools
+        });
+      } else {
+        if (req.user) {
+          if (req.user.id == devtools.user._id) {
+            res.render('devtools/show', {
+              devtools: devtools
+            });
+          } else {
+            res.redirect('/devtools');
+          }
+        } else {
+          res.redirect('/devtools');
+        }
+      }
     });
 });
 
 // List DevTools from a user
-router.get("/user/:userId", (req, res) => {
-  Devtools.find({ user: req.params.userId, status: "public" })
-    .populate("user")
+router.get('/user/:userId', (req, res) => {
+  Devtools.find({ user: req.params.userId, status: 'public' })
+    .populate('user')
     .then(devtools => {
-      res.render("devtools/index", {
+      res.render('devtools/index', {
         devtools: devtools
       });
     });
 });
 
 // Logged in Users DevTools
-router.get("/my", ensureAuthenticated, (req, res) => {
-  Devtools.find({ user: req.user.id})
-    .populate("user")
+router.get('/my', ensureAuthenticated, (req, res) => {
+  Devtools.find({ user: req.user.id })
+    .populate('user')
     .then(devtools => {
-      res.render("devtools/index", {
+      res.render('devtools/index', {
         devtools: devtools
       });
     });
 });
 
 // Add DevTools Form
-router.get("/add", ensureAuthenticated, (req, res) => {
-  res.render("devtools/add");
+router.get('/add', ensureAuthenticated, (req, res) => {
+  res.render('devtools/add');
 });
 
 // Edit DevTools Form
-router.get("/edit/:id", ensureAuthenticated, (req, res) => {
+router.get('/edit/:id', ensureAuthenticated, (req, res) => {
   Devtools.findOne({
     _id: req.params.id
   }).then(devtools => {
     if (devtools.user != req.user.id) {
-      res.redirect("/devtools");
+      res.redirect('/devtools');
     } else {
-      res.render("devtools/edit", {
+      res.render('devtools/edit', {
         devtools: devtools
       });
     }
@@ -74,7 +88,7 @@ router.get("/edit/:id", ensureAuthenticated, (req, res) => {
 });
 
 // Process Add DevTools
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   let allowComments;
 
   if (req.body.allowComments) {
@@ -97,7 +111,7 @@ router.post("/", (req, res) => {
 });
 
 // Edit Form Process
-router.put("/:id", (req, res) => {
+router.put('/:id', (req, res) => {
   Devtools.findOne({
     _id: req.params.id
   }).then(devtools => {
@@ -116,20 +130,20 @@ router.put("/:id", (req, res) => {
     devtools.allowComments = allowComments;
 
     devtools.save().then(devtools => {
-      res.redirect("/dashboard");
+      res.redirect('/dashboard');
     });
   });
 });
 
 // Delete Devtool
-router.delete("/:id", (req, res) => {
+router.delete('/:id', (req, res) => {
   Devtools.remove({ _id: req.params.id }).then(() => {
-    res.redirect("/dashboard");
+    res.redirect('/dashboard');
   });
 });
 
 // Add comment
-router.post("/comment/:id", (req, res) => {
+router.post('/comment/:id', (req, res) => {
   Devtools.findOne({
     _id: req.params.id
   }).then(devtools => {
