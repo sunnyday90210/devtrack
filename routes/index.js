@@ -21,4 +21,13 @@ router.get("/about", (req, res) => {
   res.render("index/about");
 });
 
+router.get("/register", (req, res) => {
+  res.render("index/register");
+});
+
+router.get("/login", (req, res) => {
+  res.render("index/login");
+});
+
+
 module.exports = router;
