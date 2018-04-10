@@ -110,3 +110,7 @@ footer {
 footer, .footer-copyright, .footer_links_color {
   color: #666666 !important;
 }
+
+.login-form {
+  margin-top: 30px;
+}

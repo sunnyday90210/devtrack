@@ -1,1 +1,26 @@
-<h1>Login Page this is cool</h1>
+<div class="valign-wrapper row login-form">
+  <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+    <form>
+      <div class="card-content">
+        <span class="card-title">Login</span>
+        <div class="row">
+          <div class="input-field col s12">
+            <label for="email">Email address</label>
+            <input type="email" name="email" required/>
+          </div>
+          <div class="input-field col s12">
+            <label for="password">Password</label>
+            <input type="password" name="password" required/>
+          </div>
+        </div>
+      </div>
+      <div class="card-action center-align">
+        <a class="btn red darken-1" href="/auth/google">
+          <i class="fab fa-google"></i> Login with Google
+        </a>
+        <input type="submit" class="btn green waves-effect waves-light" value="Login">
+      </div>
+    </form>
+      <p class="small center-align"><a href="./register">Register</a> if you dont have an account</p>
+  </div>
+</div>
