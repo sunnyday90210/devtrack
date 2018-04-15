@@ -1,24 +1,24 @@
 <div class="valign-wrapper row login-form">
   <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
-    <form>
+    <form action="/register" method="post">
       <div class="card-content">
         <span class="card-title">Create Account</span>
         <div class="row">
           <div class="input-field col s12">
             <label for="name">Name</label>
-            <input type="text" name="name" required/>
+            <input type="text" name="name" value="{{name}}"  required/>
           </div>
           <div class="input-field col s12">
             <label for="email">Email address</label>
-            <input type="email" name="email" required/>
+            <input type="email" name="email" value="{{email}}" required/>
           </div>
           <div class="input-field col s12">
             <label for="password">Password</label>
-            <input type="password" name="password" required/>
+            <input type="password" name="password" value="{{password}}" required/>
           </div>
           <div class="input-field col s12">
             <label for="password2">Confirm Password</label>
-            <input type="password" name="password2" required/>
+            <input type="password" name="password2" value="{{password2}}" required/>
           </div>
         </div>
       </div>

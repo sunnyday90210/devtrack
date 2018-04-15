@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const Devtools = mongoose.model('devtools');
 const user = mongoose.model('users');
+const UserPass = mongoose.model('userspass');
 const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
 
 // DevTools Index

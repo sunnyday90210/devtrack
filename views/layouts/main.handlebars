@@ -18,6 +18,8 @@
   {{> _header}} {{#if user}} {{> _add-btn}} {{/if}}
   <main>
     <div class="container">
+      {{> _errors}}
+      {{> _msg}}
       {{{body}}}
     </div>
   </main>
