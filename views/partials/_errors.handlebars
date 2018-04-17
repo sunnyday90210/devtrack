@@ -1,3 +1,7 @@
+{{#if error}}
+  <div class="errors_text">{{error}}</div>
+{{/if}}
+
 {{#each errors}}
   <div class="errors_text">{{text}}</div>
 {{else}}
